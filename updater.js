@@ -5,7 +5,7 @@
 
 const UPDATER_CONFIG = {
   repoOwner: "jack21-21",
-  repoName: "FiveTV-Ui",
+  repoName: "FireTV-Overhaul",
   branch: "main",
   localPcIp: "192.168.68.54",
   localPcPort: 8000,
