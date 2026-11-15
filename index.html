@@ -7,7 +7,7 @@
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-black text-white m-0 p-0 overflow-hidden select-none font-sans">
+<body class="bg-[#06080e] text-white m-0 p-0 overflow-hidden select-none font-sans">
   
   <!-- Ambient Govee T3 Projection Bleed for Camera Mount -->
   <div id="ambient-bleed" class="ambient-glow-container pointer-events-none">
@@ -17,7 +17,7 @@
     <div class="glow-orb bottom-glow"></div>
   </div>
 
-  <!-- Central Arc Reactor Hologram Ambient Backdrop (from Mockup) -->
+  <!-- Central Arc Reactor Hologram Ambient Backdrop -->
   <div class="arc-reactor-bg pointer-events-none">
     <div class="arc-core-pulse"></div>
   </div>
@@ -27,15 +27,11 @@
     
     <!-- 1. TOP SYSTEM & NAVIGATION BAR -->
     <header class="flex items-center justify-between px-6 py-2.5 rounded-2xl glass-panel">
-      <!-- Left: Device Brand & Govee Sync -->
-      <div class="flex items-center gap-3">
-        <div class="apple-logo-badge"></div>
-        <div class="flex items-center gap-2">
-          <span class="font-bold text-sm tracking-wide text-white">JVC 43"</span>
-          <span class="govee-tag">[Govee T3 Synced]</span>
-          <span class="text-white/30 text-xs mx-1">|</span>
-          <span class="text-xs text-white/60">Fire OS 7.7.1 • Zero Ads</span>
-        </div>
+      <!-- Left: Simplified Apple TV Brand -->
+      <div class="flex items-center gap-2.5">
+        <span class="text-lg font-bold"></span>
+        <span class="font-bold text-sm tracking-wide text-white">JVC 43"</span>
+        <span class="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/60 font-mono">v1.0.0</span>
       </div>
 
       <!-- Center: Navigation Tabs -->
@@ -48,26 +44,28 @@
         <button id="tab-screensaver" class="nav-pill" data-tab="screensaver" tabindex="0">
           <span class="text-amber-300">✨</span> Screensaver
         </button>
+        <button id="tab-settings" class="nav-pill" data-tab="settings" tabindex="0">
+          <span>⚙</span> Settings
+        </button>
       </nav>
 
-      <!-- Right: J.A.R.V.I.S. Status Mini-Pill (HOME PAGE ONLY) -->
-      <div id="jarvis-status-pill" class="jarvis-mini-pill flex items-center gap-3 px-3.5 py-1.5 rounded-2xl glass-card">
+      <!-- Right: J.A.R.V.I.S. Status Mini-Pill (HOME PAGE ONLY - Cleaned of brackets) -->
+      <div id="jarvis-status-pill" class="jarvis-mini-pill flex items-center gap-3 px-3.5 py-1.5 rounded-2xl glass-card cursor-pointer" onclick="showJarvisHUD()" tabindex="0">
         <div class="w-8 h-8 rounded-full overflow-hidden border border-cyan-400/60 shadow-[0_0_12px_rgba(6,182,212,0.6)] flex items-center justify-center bg-black/60 relative">
           <img src="assets/jarvis_core.jpg" alt="Reactor" class="w-full h-full object-cover">
           <div class="absolute inset-0 border border-cyan-300/40 rounded-full animate-ping opacity-30"></div>
         </div>
         <div class="text-left leading-tight">
           <div class="flex items-center gap-1.5">
-            <span class="text-xs font-bold text-white tracking-wide">[ J.A.R.V.I.S. ]</span>
+            <span class="text-xs font-bold text-white tracking-wide">J.A.R.V.I.S.</span>
             <span class="text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Online
             </span>
-            <span class="text-[10px] text-white/60 font-mono">📍 London 14°C ☁</span>
+            <span class="text-[10px] text-white/60 font-mono" id="weather-display">Wisbech 14°C ☁</span>
           </div>
-          <div class="text-[10px] text-cyan-200/90 font-mono mt-0.5 flex items-center gap-1.5">
-            <span>🖨 Bambu P1S: 68%</span>
-            <span class="text-white/40">|</span>
-            <span class="text-white/60">Layer 164/200</span>
+          <!-- Cycling Status Ticker -->
+          <div id="jarvis-ticker" class="text-[10px] text-cyan-200/90 font-mono mt-0.5 ticker-fade">
+            🖨 Bambu P1S: Printing 68% • Layer 164/200
           </div>
         </div>
       </div>
@@ -76,22 +74,22 @@
     <!-- 2. HOME TAB CONTENT -->
     <div id="view-home" class="tab-view active flex flex-col justify-between space-y-4 my-auto">
       
-      <!-- Stremio • Continue Watching (Home Page Only) -->
+      <!-- Stremio • Continue Watching -->
       <section class="space-y-2">
         <div class="flex items-center justify-between px-1">
           <div class="flex items-center gap-2">
             <span class="text-purple-400 text-sm">▶</span>
-            <h2 class="text-xs font-bold tracking-widest uppercase text-white/90">STREMIO • CONTINUE WATCHING (HOME PAGE ONLY)</h2>
+            <h2 class="text-xs font-bold tracking-widest uppercase text-white/90">CONTINUE WATCHING</h2>
           </div>
-          <span class="text-[11px] text-purple-300/70 font-mono">Real-Time Sync • Trakt 4K</span>
+          <span class="text-[11px] text-purple-300/70 font-mono">Stremio 4K</span>
         </div>
 
         <div class="grid grid-cols-3 gap-4" id="stremio-rail">
-          <!-- Card 1: Dune: Prophecy -->
-          <div class="show-card glass-card p-4 rounded-3xl" tabindex="0" data-app="stremio" data-title="Dune: Prophecy" data-stream="stremio://detail/series/tt10466872">
-            <div class="poster-box rounded-2xl h-32 relative overflow-hidden flex flex-col justify-between p-3" style="background: linear-gradient(135deg, rgba(67, 40, 24, 0.8), rgba(20, 15, 30, 0.9));">
+          <!-- Card 1: Dune: Prophecy (Golden/Desert Theme) -->
+          <div class="show-card glass-card p-4 rounded-3xl" tabindex="0" data-app="dune" data-theme="dune" data-stream="stremio://detail/series/tt10466872">
+            <div class="poster-box rounded-2xl h-32 relative overflow-hidden flex flex-col justify-between p-3" style="background: linear-gradient(135deg, rgba(120, 75, 20, 0.85), rgba(25, 18, 10, 0.95));">
               <div class="flex items-center justify-between z-10">
-                <span class="badge-tag bg-purple-600/90 text-white">STREMIO</span>
+                <span class="badge-tag bg-amber-600/90 text-white">STREMIO</span>
                 <span class="badge-tag bg-white/20 text-white font-mono">4K HDR • Atmos</span>
               </div>
               <div class="z-10">
@@ -101,19 +99,19 @@
             </div>
             <!-- Progress Bar -->
             <div class="progress-track mt-3">
-              <div class="progress-bar bg-gradient-to-r from-purple-500 to-cyan-400" style="width: 65%;"></div>
+              <div class="progress-bar bg-gradient-to-r from-amber-500 to-yellow-400" style="width: 65%;"></div>
             </div>
             <div class="flex items-center justify-between pt-2">
-              <span class="text-xs font-medium text-purple-300 flex items-center gap-1.5">
+              <span class="text-xs font-medium text-amber-300 flex items-center gap-1.5">
                 <span class="play-icon">▶</span> Resume at 28:14
               </span>
               <span class="text-xs text-white/50 font-mono">65%</span>
             </div>
           </div>
 
-          <!-- Card 2: Arcane Season 2 -->
-          <div class="show-card glass-card p-4 rounded-3xl" tabindex="0" data-app="stremio" data-title="Arcane" data-stream="stremio://detail/series/tt11126994">
-            <div class="poster-box rounded-2xl h-32 relative overflow-hidden flex flex-col justify-between p-3" style="background: linear-gradient(135deg, rgba(20, 50, 90, 0.8), rgba(15, 20, 40, 0.9));">
+          <!-- Card 2: Arcane Season 2 (Zaunite Cyan / Piltover Blue Theme) -->
+          <div class="show-card glass-card p-4 rounded-3xl" tabindex="0" data-app="arcane" data-theme="arcane" data-stream="stremio://detail/series/tt11126994">
+            <div class="poster-box rounded-2xl h-32 relative overflow-hidden flex flex-col justify-between p-3" style="background: linear-gradient(135deg, rgba(20, 80, 140, 0.85), rgba(10, 20, 45, 0.95));">
               <div class="flex items-center justify-between z-10">
                 <span class="badge-tag bg-blue-600/90 text-white">STREMIO</span>
                 <span class="badge-tag bg-white/20 text-white font-mono">4K • Atmos</span>
@@ -125,21 +123,21 @@
             </div>
             <!-- Progress Bar -->
             <div class="progress-track mt-3">
-              <div class="progress-bar bg-gradient-to-r from-blue-500 to-indigo-400" style="width: 40%;"></div>
+              <div class="progress-bar bg-gradient-to-r from-cyan-400 to-blue-500" style="width: 40%;"></div>
             </div>
             <div class="flex items-center justify-between pt-2">
-              <span class="text-xs font-medium text-blue-300 flex items-center gap-1.5">
+              <span class="text-xs font-medium text-cyan-300 flex items-center gap-1.5">
                 <span class="play-icon">▶</span> Resume at 18:30
               </span>
               <span class="text-xs text-white/50 font-mono">40%</span>
             </div>
           </div>
 
-          <!-- Card 3: The Penguin -->
-          <div class="show-card glass-card p-4 rounded-3xl" tabindex="0" data-app="stremio" data-title="The Penguin" data-stream="stremio://detail/series/tt15474916">
-            <div class="poster-box rounded-2xl h-32 relative overflow-hidden flex flex-col justify-between p-3" style="background: linear-gradient(135deg, rgba(70, 20, 20, 0.8), rgba(20, 20, 25, 0.9));">
+          <!-- Card 3: The Penguin (Gotham Crimson Theme) -->
+          <div class="show-card glass-card p-4 rounded-3xl" tabindex="0" data-app="penguin" data-theme="penguin" data-stream="stremio://detail/series/tt15474916">
+            <div class="poster-box rounded-2xl h-32 relative overflow-hidden flex flex-col justify-between p-3" style="background: linear-gradient(135deg, rgba(120, 20, 20, 0.85), rgba(25, 10, 10, 0.95));">
               <div class="flex items-center justify-between z-10">
-                <span class="badge-tag bg-amber-600/90 text-white">STREMIO</span>
+                <span class="badge-tag bg-red-600/90 text-white">STREMIO</span>
                 <span class="badge-tag bg-white/20 text-white font-mono">4K HDR</span>
               </div>
               <div class="z-10">
@@ -149,10 +147,10 @@
             </div>
             <!-- Progress Bar -->
             <div class="progress-track mt-3">
-              <div class="progress-bar bg-gradient-to-r from-amber-500 to-red-500" style="width: 82%;"></div>
+              <div class="progress-bar bg-gradient-to-r from-red-500 to-rose-600" style="width: 82%;"></div>
             </div>
             <div class="flex items-center justify-between pt-2">
-              <span class="text-xs font-medium text-amber-300 flex items-center gap-1.5">
+              <span class="text-xs font-medium text-red-300 flex items-center gap-1.5">
                 <span class="play-icon">▶</span> Resume at 55:10
               </span>
               <span class="text-xs text-white/50 font-mono">82%</span>
@@ -161,141 +159,209 @@
         </div>
       </section>
 
-      <!-- Core Applications (Frosted Liquid Glass Dock) -->
+      <!-- Clean Apps Dock (Logo + Name Only) -->
       <section class="space-y-2">
         <div class="flex items-center justify-between px-1">
           <div class="flex items-center gap-2">
             <span class="text-amber-400 text-sm">★</span>
-            <h2 class="text-xs font-bold tracking-widest uppercase text-white/90">CORE APPLICATIONS (FROSTED LIQUID GLASS DOCK)</h2>
+            <h2 class="text-xs font-bold tracking-widest uppercase text-white/90">APPS</h2>
           </div>
-          <span class="text-[11px] text-white/40">Hold Remote Select to Summon J.A.R.V.I.S.</span>
+          <span class="text-[11px] text-white/40">Hold Remote Select for J.A.R.V.I.S.</span>
         </div>
 
         <div class="grid grid-cols-6 gap-3.5" id="app-dock">
-          <!-- Stremio (Main Hub) -->
-          <div class="dock-app-card stremio-glow" tabindex="0" data-app="stremio" data-package="com.stremio.one">
+          <!-- Stremio -->
+          <div class="dock-app-card" tabindex="0" data-app="stremio" data-theme="stremio" data-package="com.stremio.one">
             <div class="app-icon-wrap bg-gradient-to-tr from-purple-800 to-indigo-600">
               <span class="icon-glyph">▶</span>
             </div>
             <div class="app-title">STREMIO</div>
-            <div class="app-sub">Main Hub</div>
           </div>
 
-          <!-- YouTube (SmartTube 0% Ads) -->
-          <div class="dock-app-card youtube-glow" tabindex="0" data-app="smarttube" data-package="com.teamsmart.videomanager.tv">
+          <!-- YouTube -->
+          <div class="dock-app-card" tabindex="0" data-app="youtube" data-theme="youtube" data-package="com.teamsmart.videomanager.tv">
             <div class="app-icon-wrap bg-gradient-to-tr from-red-600 to-rose-700">
               <span class="icon-glyph">►</span>
             </div>
             <div class="app-title">YOUTUBE</div>
-            <div class="app-sub text-red-300">(Smart) 0% All Ads</div>
           </div>
 
-          <!-- Spotify (Govee Sync) -->
-          <div class="dock-app-card spotify-glow" tabindex="0" data-app="spotify" data-package="com.spotify.tv.android">
+          <!-- Spotify -->
+          <div class="dock-app-card" tabindex="0" data-app="spotify" data-theme="spotify" data-package="com.spotify.tv.android">
             <div class="app-icon-wrap bg-gradient-to-tr from-emerald-500 to-teal-700">
               <span class="icon-glyph">♫</span>
             </div>
             <div class="app-title">SPOTIFY</div>
-            <div class="app-sub text-emerald-300">Govee Sync</div>
           </div>
 
-          <!-- Browser (Unlocked) -->
-          <div class="dock-app-card browser-glow" tabindex="0" data-app="browser" data-package="org.mozilla.tv.firefox">
+          <!-- Browser -->
+          <div class="dock-app-card" tabindex="0" data-app="browser" data-theme="browser" data-package="org.mozilla.tv.firefox">
             <div class="app-icon-wrap bg-gradient-to-tr from-blue-600 to-cyan-500">
               <span class="icon-glyph">🌐</span>
             </div>
             <div class="app-title">BROWSER</div>
-            <div class="app-sub text-cyan-300">Unlocked</div>
           </div>
 
-          <!-- Downloader (USB & File) -->
-          <div class="dock-app-card downloader-glow" tabindex="0" data-app="downloader" data-package="com.esotericsoftware.clouddownloader">
+          <!-- Downloader -->
+          <div class="dock-app-card" tabindex="0" data-app="downloader" data-theme="downloader" data-package="com.esotericsoftware.clouddownloader">
             <div class="app-icon-wrap bg-gradient-to-tr from-sky-500 to-blue-700">
               <span class="icon-glyph">⬇</span>
             </div>
             <div class="app-title">DOWNLOADER</div>
-            <div class="app-sub text-sky-200">USB & File</div>
           </div>
 
-          <!-- Netflix (Secondary) -->
-          <div class="dock-app-card netflix-glow" tabindex="0" data-app="netflix" data-package="com.netflix.ninja">
+          <!-- Streaming (Changed from Netflix) -->
+          <div class="dock-app-card" tabindex="0" data-app="streaming" data-theme="streaming" data-package="com.netflix.ninja">
             <div class="app-icon-wrap bg-black border border-white/10">
               <span class="icon-glyph text-red-600 font-serif font-black text-2xl">N</span>
             </div>
-            <div class="app-title">NETFLIX</div>
-            <div class="app-sub text-white/50">Secondary</div>
+            <div class="app-title">STREAMING</div>
           </div>
         </div>
       </section>
 
-      <!-- JVC TV Direct Hardware Inputs -->
+      <!-- JVC TV Direct Hardware Inputs (Renamable) -->
       <section class="space-y-2">
         <div class="flex items-center justify-between px-1">
           <div class="flex items-center gap-2">
             <span class="text-blue-400 text-sm">⎚</span>
-            <h2 class="text-xs font-bold tracking-widest uppercase text-white/90">JVC TV DIRECT HARDWARE INPUTS</h2>
+            <h2 class="text-xs font-bold tracking-widest uppercase text-white/90">INPUTS</h2>
           </div>
-          <span class="text-[11px] text-white/40">Direct HDMI Switcher</span>
+          <span class="text-[11px] text-white/40">Click to Select • Hold to Rename</span>
         </div>
 
         <div class="grid grid-cols-3 gap-3.5" id="input-bar">
-          <div class="input-card glass-card" tabindex="0" data-input="hdmi1">
+          <div class="input-card glass-card" tabindex="0" data-input="hdmi1" data-theme="hdmi">
             <div class="input-icon">⎚</div>
             <div>
-              <div class="text-xs font-bold text-white">[1] HDMI 1 (eARC)</div>
-              <div class="text-[10px] text-white/60">Soundbar / Home Audio</div>
+              <div class="text-xs font-bold text-white" id="name-hdmi1">HDMI 1</div>
+              <div class="text-[10px] text-white/60" id="sub-hdmi1">Soundbar</div>
             </div>
           </div>
 
-          <div class="input-card glass-card" tabindex="0" data-input="hdmi2">
+          <div class="input-card glass-card" tabindex="0" data-input="hdmi2" data-theme="hdmi">
             <div class="input-icon">🎮</div>
             <div>
-              <div class="text-xs font-bold text-white">[2] HDMI 2 (Gaming)</div>
-              <div class="text-[10px] text-white/60">PS5 / Xbox Series</div>
+              <div class="text-xs font-bold text-white" id="name-hdmi2">HDMI 2</div>
+              <div class="text-[10px] text-white/60" id="sub-hdmi2">PS5</div>
             </div>
           </div>
 
-          <div class="input-card glass-card" tabindex="0" data-input="hdmi3">
+          <div class="input-card glass-card" tabindex="0" data-input="hdmi3" data-theme="hdmi">
             <div class="input-icon">💻</div>
             <div>
-              <div class="text-xs font-bold text-white">[3] HDMI 3 (PC Link)</div>
-              <div class="text-[10px] text-white/60">Desktop Workstation</div>
+              <div class="text-xs font-bold text-white" id="name-hdmi3">HDMI 3</div>
+              <div class="text-[10px] text-white/60" id="sub-hdmi3">PC Link</div>
             </div>
           </div>
         </div>
       </section>
     </div>
 
-    <!-- 3. APPS DRAWER VIEW (Hidden by default) -->
+    <!-- 3. APPS VIEW -->
     <div id="view-apps" class="tab-view hidden space-y-4 my-auto">
       <div class="flex items-center justify-between px-2">
-        <h2 class="text-sm font-bold tracking-wider text-white">ALL INSTALLED APPLICATIONS</h2>
-        <span class="text-xs text-white/40">Clean Grid • Zero Ads</span>
+        <h2 class="text-sm font-bold tracking-wider text-white">ALL APPLICATIONS</h2>
+        <span class="text-xs text-white/40">Installed Apps</span>
       </div>
       <div class="grid grid-cols-4 gap-4" id="all-apps-grid">
-        <!-- Rendered dynamically via app.js -->
+        <div class="glass-card p-4 rounded-2xl text-center cursor-pointer" tabindex="0" data-app="stremio">Stremio 4K</div>
+        <div class="glass-card p-4 rounded-2xl text-center cursor-pointer" tabindex="0" data-app="youtube">SmartTube 4K</div>
+        <div class="glass-card p-4 rounded-2xl text-center cursor-pointer" tabindex="0" data-app="spotify">Spotify TV</div>
+        <div class="glass-card p-4 rounded-2xl text-center cursor-pointer" tabindex="0" data-app="browser">Unlocked Browser</div>
+        <div class="glass-card p-4 rounded-2xl text-center cursor-pointer" tabindex="0" data-app="downloader">Downloader & Files</div>
+        <div class="glass-card p-4 rounded-2xl text-center cursor-pointer" tabindex="0" data-app="streaming">Streaming Services</div>
       </div>
     </div>
 
-    <!-- 4. INPUTS VIEW (Hidden by default) -->
+    <!-- 4. INPUTS VIEW -->
     <div id="view-inputs" class="tab-view hidden space-y-4 my-auto">
       <div class="flex items-center justify-between px-2">
-        <h2 class="text-sm font-bold tracking-wider text-white">HARDWARE INPUT SOURCES</h2>
+        <h2 class="text-sm font-bold tracking-wider text-white">HARDWARE INPUTS</h2>
         <span class="text-xs text-white/40">Direct TV Port Selector</span>
       </div>
       <div class="grid grid-cols-3 gap-5" id="all-inputs-grid">
-        <!-- Rendered dynamically -->
+        <div class="glass-card p-5 rounded-2xl cursor-pointer" tabindex="0" data-input="hdmi1">HDMI 1</div>
+        <div class="glass-card p-5 rounded-2xl cursor-pointer" tabindex="0" data-input="hdmi2">HDMI 2</div>
+        <div class="glass-card p-5 rounded-2xl cursor-pointer" tabindex="0" data-input="hdmi3">HDMI 3</div>
       </div>
     </div>
 
-    <!-- 5. SCREENSAVER VIEW (Hidden by default / Auto-trigger) -->
+    <!-- 5. SETTINGS VIEW (NEW!) -->
+    <div id="view-settings" class="tab-view hidden space-y-4 my-auto max-w-4xl mx-auto w-full">
+      <div class="flex items-center justify-between px-2 pb-2 border-b border-white/10">
+        <div>
+          <h2 class="text-base font-bold text-white">SYSTEM SETTINGS</h2>
+          <p class="text-xs text-white/60">Customize names, weather location, Govee sync, and OTA updates</p>
+        </div>
+        <button id="btn-reset-defaults" class="px-4 py-2 rounded-xl bg-red-500/20 text-red-300 border border-red-500/40 text-xs font-semibold hover:bg-red-500/30 transition flex items-center gap-1.5" tabindex="0">
+          <span>↺</span> Reset to Defaults
+        </button>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <!-- HDMI Names -->
+        <div class="glass-card p-4 rounded-2xl space-y-3">
+          <h3 class="text-xs font-bold text-cyan-300 uppercase tracking-wider">HDMI Port Names</h3>
+          <div class="space-y-2 text-xs">
+            <div>
+              <label class="text-white/60 block mb-1">HDMI 1 Name:</label>
+              <input type="text" id="setting-hdmi1" class="w-full px-3 py-1.5 rounded-lg bg-black/40 border border-white/15 text-white" value="Soundbar">
+            </div>
+            <div>
+              <label class="text-white/60 block mb-1">HDMI 2 Name:</label>
+              <input type="text" id="setting-hdmi2" class="w-full px-3 py-1.5 rounded-lg bg-black/40 border border-white/15 text-white" value="PS5">
+            </div>
+            <div>
+              <label class="text-white/60 block mb-1">HDMI 3 Name:</label>
+              <input type="text" id="setting-hdmi3" class="w-full px-3 py-1.5 rounded-lg bg-black/40 border border-white/15 text-white" value="PC Link">
+            </div>
+          </div>
+        </div>
+
+        <!-- Weather & Integrations -->
+        <div class="glass-card p-4 rounded-2xl space-y-3">
+          <h3 class="text-xs font-bold text-cyan-300 uppercase tracking-wider">Weather & J.A.R.V.I.S.</h3>
+          <div class="space-y-2 text-xs">
+            <div>
+              <label class="text-white/60 block mb-1">Weather City:</label>
+              <input type="text" id="setting-city" class="w-full px-3 py-1.5 rounded-lg bg-black/40 border border-white/15 text-white" value="Wisbech">
+            </div>
+            <div>
+              <label class="text-white/60 block mb-1">Govee T3 Sync:</label>
+              <select id="setting-govee" class="w-full px-3 py-1.5 rounded-lg bg-black/40 border border-white/15 text-white">
+                <option value="enabled" selected>Enabled (Ambient Dynamic Shift)</option>
+                <option value="disabled">Disabled</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-white/60 block mb-1">Screensaver Timeout:</label>
+              <select id="setting-timeout" class="w-full px-3 py-1.5 rounded-lg bg-black/40 border border-white/15 text-white">
+                <option value="60000">1 Minute</option>
+                <option value="180000" selected>3 Minutes (Default)</option>
+                <option value="300000">5 Minutes</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between pt-2">
+        <span id="settings-status" class="text-xs text-emerald-400 font-mono"></span>
+        <button id="btn-save-settings" class="px-5 py-2 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-400/40 text-xs font-bold hover:bg-cyan-500/30 transition" tabindex="0">
+          Save Settings
+        </button>
+      </div>
+    </div>
+
+    <!-- 6. SCREENSAVER VIEW -->
     <div id="view-screensaver" class="tab-view hidden absolute inset-0 z-40 bg-black flex flex-col items-center justify-center">
       <img src="assets/jarvis_core.jpg" alt="Reactor Core" class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-screen scale-105 filter saturate-150">
       <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/80"></div>
       
       <div class="relative z-10 text-center space-y-4">
         <div id="screensaver-time" class="text-7xl font-light text-white tracking-tight drop-shadow-2xl">10:42 PM</div>
-        <div id="screensaver-date" class="text-sm font-semibold tracking-widest uppercase text-amber-200">Sunday, November 15 • London 14°C</div>
+        <div id="screensaver-date" class="text-sm font-semibold tracking-widest uppercase text-amber-200">Sunday, November 15 • Wisbech 14°C</div>
         
         <div class="flex items-center justify-center gap-3 pt-4">
           <div class="px-4 py-2 rounded-2xl bg-black/60 backdrop-blur-xl border border-cyan-400/40 text-cyan-200 text-xs flex items-center gap-2 shadow-2xl">
@@ -344,7 +410,7 @@
 
       <div class="pt-2">
         <button id="jarvis-dismiss-btn" class="px-5 py-2 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-xs font-semibold hover:bg-cyan-500/30 transition">
-          Dismiss HUD [Back]
+          Dismiss HUD
         </button>
       </div>
     </div>
