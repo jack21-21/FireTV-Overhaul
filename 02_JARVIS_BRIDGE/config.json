@@ -1,0 +1,40 @@
+{
+  "device": {
+    "name": "Jack's TV",
+    "model": "JVC_LT-43CF810(C)",
+    "os": "Fire OS 7.7.1.4",
+    "screen_width": 1920,
+    "screen_height": 1080
+  },
+  "jarvis_bridge": {
+    "pc_local_ip": "192.168.68.54",
+    "port": 8000,
+    "voice_profile": "bettany_mcu",
+    "tts_engine": "piper_onnx",
+    "remote_hold_trigger_ms": 750
+  },
+  "integrations": {
+    "govee_t3": {
+      "enabled": true,
+      "api_key": "3dd200a1-dbc8-43c6-a793-8864963b769a",
+      "mode": "dreamview_movie"
+    },
+    "bambu_3d_printer": {
+      "enabled": true,
+      "ip": "192.168.68.54",
+      "model": "P1S",
+      "serial": "01P00C590902843"
+    },
+    "tmdb": {
+      "api_key": "7b2e3b4bd515259f0683eb814399e4d3"
+    },
+    "spotify": {
+      "client_id": "736b6b6547d34aeb8d7f88bd65b431ac"
+    }
+  },
+  "ota_updates": {
+    "enabled": true,
+    "repo": "jack21-21/FiveTV-Ui",
+    "branch": "main"
+  }
+}

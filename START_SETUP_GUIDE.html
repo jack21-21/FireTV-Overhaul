@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> FiveTV UI - JVC 43" USB Setup Guide</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    body { background: #070913; color: #fff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.12); }
+  </style>
+</head>
+<body class="p-8 max-w-4xl mx-auto space-y-6">
+  
+  <header class="flex items-center justify-between pb-6 border-b border-white/10">
+    <div>
+      <h1 class="text-2xl font-bold flex items-center gap-2">
+        <span class="text-xl"></span> FiveTV Liquid Glass UI Setup
+      </h1>
+      <p class="text-xs text-white/60">Configured for Jack's JVC 43" (LT-43CF810) • Fire OS 7.7.1 • Govee T3 Sync</p>
+    </div>
+    <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs border border-emerald-500/30">
+      Ready for USB Transfer
+    </span>
+  </header>
+
+  <!-- Step 1 -->
+  <div class="glass-card p-6 rounded-3xl space-y-3">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-300 font-bold flex items-center justify-center border border-cyan-500/30">1</div>
+      <h2 class="text-base font-bold text-white">Copy Files to Your USB Flash Drive</h2>
+    </div>
+    <p class="text-xs text-white/70">
+      Plug your USB stick into your PC and copy the entire contents of this <code class="bg-white/10 px-2 py-0.5 rounded text-cyan-200">FiveTV Ui</code> folder directly onto the root of the USB drive.
+    </p>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="glass-card p-6 rounded-3xl space-y-3">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-purple-500/20 text-purple-300 font-bold flex items-center justify-center border border-purple-500/30">2</div>
+      <h2 class="text-base font-bold text-white">Enable "Developer Options" on Your JVC Fire TV</h2>
+    </div>
+    <ul class="text-xs text-white/70 space-y-1.5 list-disc list-inside">
+      <li>On your TV, go to <strong>Settings ⚙️</strong> → <strong>Device & Software</strong> → <strong>About</strong>.</li>
+      <li>Click your <strong>TV Name (Jack's TV)</strong> repeatedly <strong>7 times</strong> until it says <em>"You are now a developer"</em>.</li>
+      <li>Press Back, select <strong>Developer Options</strong>, and turn <strong>Install Unknown Apps</strong> to <strong>ON</strong>.</li>
+    </ul>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="glass-card p-6 rounded-3xl space-y-3">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-300 font-bold flex items-center justify-center border border-emerald-500/30">3</div>
+      <h2 class="text-base font-bold text-white">Plug USB into TV & Sideload Apps</h2>
+    </div>
+    <p class="text-xs text-white/70">
+      Plug the USB drive into the USB port on the back/side of your JVC TV. Open your file manager (or Downloader/X-plore) and install:
+    </p>
+    <div class="grid grid-cols-2 gap-3 pt-2 text-xs">
+      <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+        <strong class="text-purple-300">Stremio 4K Android TV:</strong> Your primary media hub with real-time watch resume.
+      </div>
+      <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+        <strong class="text-red-300">SmartTube 4K:</strong> 100% ad-free YouTube with SponsorBlock built in.
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 4: OTA Updates -->
+  <div class="glass-card p-6 rounded-3xl space-y-2 border-cyan-500/30 bg-cyan-950/20">
+    <h3 class="text-sm font-bold text-cyan-300 flex items-center gap-2">
+      <span>✨</span> GitHub Over-The-Air (OTA) Live Updates
+    </h3>
+    <p class="text-xs text-white/70 leading-relaxed">
+      Once installed, the TV automatically connects to your GitHub repository (<code>jack21-21/FiveTV-Ui</code>) over your home Wi-Fi. Any changes we make on your PC will automatically sync live to your TV—you never need to plug in the USB stick again!
+    </p>
+  </div>
+
+</body>
+</html>
