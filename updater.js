@@ -7,6 +7,8 @@ const UPDATER_CONFIG = {
   repoOwner: "jack21-21",
   repoName: "FiveTV-Ui",
   branch: "main",
+  localPcIp: "192.168.68.54",
+  localPcPort: 8000,
   checkIntervalMs: 600000, // Check every 10 minutes
   localVersion: "1.0.0"
 };
