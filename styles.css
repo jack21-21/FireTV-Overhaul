@@ -1,11 +1,11 @@
-/* styles.css - High-Fidelity Apple Liquid Glass TV UI */
+/* styles.css - JVC 43" Liquid Glass TV UI (Final Master) */
 
 :root {
-  --glass-bg: rgba(13, 17, 28, 0.72);
-  --glass-border: rgba(255, 255, 255, 0.15);
-  --glass-blur: blur(28px) saturate(220%);
-  --theme-glow: rgba(56, 189, 248, 0.5);
-  --card-highlight: rgba(255, 255, 255, 0.25);
+  --glass-bg: rgba(14, 18, 30, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-blur: blur(28px) saturate(210%);
+  --theme-glow: rgba(56, 189, 248, 0.45);
+  --dynamic-bg-img: url('assets/bg_poster_dune.jpg');
 }
 
 * {
@@ -13,30 +13,73 @@
 }
 
 body {
-  background-color: #05070d;
-  background-image: url('assets/dashboard_mockup.jpg');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
+  background-color: #030509;
   overflow: hidden;
   user-select: none;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
   height: 100vh;
   width: 100vw;
   position: relative;
 }
 
-/* Semi-transparent dark atmospheric overlay to ensure content is crystal-clear */
-body::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 20%, rgba(5, 8, 16, 0.45) 0%, rgba(3, 5, 10, 0.85) 75%, #030408 100%);
+/* Dynamic Full-Screen Blurred Hover Background Shifter */
+.dynamic-background {
+  position: fixed;
+  inset: -30px;
+  background-image: var(--dynamic-bg-img);
+  background-size: cover;
+  background-position: center center;
+  filter: blur(45px) brightness(0.55) saturate(190%);
+  transform: scale(1.08);
+  transition: all 0.65s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
   z-index: 1;
 }
 
-/* Master TV Viewport */
+.dynamic-vignette {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(6, 9, 18, 0.25) 0%, rgba(3, 5, 10, 0.85) 75%, #020306 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Central Stark Arc Reactor Hologram (From ChatGPT Concept) */
+.reactor-bg-wrap {
+  position: fixed;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 820px;
+  height: 580px;
+  opacity: 0.82;
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.reactor-core-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.70;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 50px rgba(0, 240, 255, 0.5));
+  animation: reactorPulse 6s infinite alternate ease-in-out;
+}
+
+.reactor-glow-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 45%, rgba(0, 240, 255, 0.28) 0%, rgba(14, 165, 233, 0.12) 40%, rgba(0, 0, 0, 0) 70%);
+}
+
+@keyframes reactorPulse {
+  0% { transform: scale(0.98); opacity: 0.65; }
+  100% { transform: scale(1.02); opacity: 0.85; }
+}
+
+/* Master Viewport Container */
 .tv-viewport {
   width: 100vw;
   height: 100vh;
@@ -44,27 +87,27 @@ body::before {
   z-index: 10;
 }
 
-/* Ambient Govee T3 Projection Bleed */
+/* Ambient Govee T3 Edge Bleed (Top camera mount + 3-side bias lighting) */
 .ambient-glow-container {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 2;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 3;
+  transition: all 0.6s ease;
 }
 
 .glow-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(85px);
-  opacity: 0.4;
-  transition: all 0.5s ease;
+  filter: blur(95px);
+  opacity: 0.40;
+  transition: all 0.6s ease;
 }
 
-.glow-orb.top-left { top: -60px; left: 5%; width: 500px; height: 260px; background: rgba(56, 189, 248, 0.4); }
-.glow-orb.top-center { top: -80px; left: 35%; width: 600px; height: 300px; background: rgba(14, 165, 233, 0.45); }
-.glow-orb.top-right { top: -60px; right: 5%; width: 500px; height: 260px; background: rgba(234, 179, 8, 0.35); }
-.glow-orb.bottom-glow { bottom: -70px; left: 20%; width: 60%; height: 220px; background: rgba(56, 189, 248, 0.3); }
+.glow-orb.top-left { top: -60px; left: 4%; width: 520px; height: 270px; background: rgba(56, 189, 248, 0.45); }
+.glow-orb.top-center { top: -85px; left: 32%; width: 660px; height: 320px; background: rgba(14, 165, 233, 0.50); }
+.glow-orb.top-right { top: -60px; right: 4%; width: 520px; height: 270px; background: rgba(234, 179, 8, 0.40); }
+.glow-orb.bottom-glow { bottom: -70px; left: 15%; width: 70%; height: 220px; background: rgba(56, 189, 248, 0.35); }
 
 /* Liquid Glass Panels & Cards */
 .glass-panel {
@@ -72,19 +115,19 @@ body::before {
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
-  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.75), inset 0 1px 1px rgba(255, 255, 255, 0.28);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.75), inset 0 1px 1px rgba(255, 255, 255, 0.25);
 }
 
 .glass-card {
-  background: rgba(15, 20, 32, 0.65);
+  background: rgba(16, 22, 36, 0.68);
   backdrop-filter: blur(24px) saturate(200%);
   -webkit-backdrop-filter: blur(24px) saturate(200%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 12px 32px -6px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 12px 32px -6px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.18);
 }
 
-/* TV Remote D-Pad Focus & Hover States */
+/* Remote D-Pad Focus & Hover Highlights */
 .glass-card:focus,
 .glass-card:hover,
 .show-card:focus,
@@ -93,18 +136,20 @@ body::before {
 .dock-app-card:hover,
 .input-card:focus,
 .input-card:hover,
-.nav-pill:focus {
+.nav-pill:focus,
+.settings-menu-item:focus,
+.settings-menu-item:hover {
   outline: none;
-  background: rgba(25, 34, 54, 0.85);
-  border-color: rgba(255, 255, 255, 0.65);
-  transform: scale(1.04) translateY(-4px);
-  box-shadow: 0 22px 45px -8px rgba(0, 0, 0, 0.9), 0 0 35px 4px var(--theme-glow), inset 0 1px 2px rgba(255, 255, 255, 0.7);
+  background: rgba(26, 36, 58, 0.88);
+  border-color: rgba(255, 255, 255, 0.70);
+  transform: scale(1.04) translateY(-3px);
+  box-shadow: 0 20px 45px -8px rgba(0, 0, 0, 0.9), 0 0 35px 4px var(--theme-glow), inset 0 1px 2px rgba(255, 255, 255, 0.70);
 }
 
 /* Navigation Tabs */
 .nav-pill {
   padding: 6px 16px;
-  border-radius: 14px;
+  border-radius: 12px;
   font-size: 13px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.7);
@@ -118,28 +163,30 @@ body::before {
   color: #ffffff;
   background: rgba(14, 165, 233, 0.3);
   border-color: rgba(56, 189, 248, 0.55);
-  box-shadow: 0 0 20px rgba(14, 165, 233, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
 }
 
-/* Stremio Cinematic Poster Cards */
+/* Continue Watching Show Cards */
 .show-card {
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  border-radius: 24px;
+  border-radius: 22px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .poster-box {
   background-size: cover;
   background-position: center center;
   position: relative;
+  overflow: hidden;
 }
 
 .poster-box::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.85) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.88) 100%);
   pointer-events: none;
 }
 
@@ -162,52 +209,46 @@ body::before {
 .progress-bar {
   height: 100%;
   border-radius: 9999px;
+  transition: width 0.4s ease;
 }
 
-/* Core Dock App Cards */
+/* App Cards in Dock & Apps Drawer (Exact Vector App Logos + Lowercase Name Only) */
 .dock-app-card {
-  padding: 16px 10px;
-  border-radius: 22px;
-  background: rgba(15, 20, 32, 0.65);
-  backdrop-filter: blur(24px);
+  padding: 14px 6px;
+  border-radius: 20px;
+  background: rgba(16, 22, 36, 0.68);
+  backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 7px;
   cursor: pointer;
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 10px 28px -5px rgba(0, 0, 0, 0.55);
 }
 
 .app-icon-wrap {
   width: 48px;
   height: 48px;
-  border-radius: 15px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.3);
 }
 
-.icon-glyph {
-  font-size: 20px;
-  color: #ffffff;
-}
-
-.app-title {
+.app-title-lower {
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.8px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
   color: #ffffff;
-  text-transform: uppercase;
 }
 
-/* JVC Direct Hardware Inputs */
+/* JVC Direct Hardware Inputs (Default styling) */
 .input-card {
-  padding: 14px 18px;
-  border-radius: 20px;
+  padding: 12px 16px;
+  border-radius: 18px;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -215,21 +256,130 @@ body::before {
 }
 
 .input-icon {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.10);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
 }
 
-/* J.A.R.V.I.S. Voice HUD Modal */
+/* Live Active HDMI Signal Dot */
+.hdmi-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #10b981;
+  box-shadow: 0 0 12px #10b981;
+  animation: liveSignalPulse 2s infinite alternate ease-in-out;
+}
+
+@keyframes liveSignalPulse {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  100% { transform: scale(1.35); opacity: 1; }
+}
+
+/* Floating Spotify Background Mini-Player */
+.spotify-mini-player {
+  position: fixed;
+  bottom: 24px;
+  right: 28px;
+  z-index: 30;
+  background: rgba(10, 16, 28, 0.85);
+  backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid rgba(16, 185, 129, 0.40);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(16, 185, 129, 0.25);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.spotify-mini-player:hover {
+  transform: translateY(-2px) scale(1.02);
+  border-color: rgba(16, 185, 129, 0.7);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 35px rgba(16, 185, 129, 0.4);
+}
+
+/* Fire TV Full Settings Category Sidebar */
+.settings-menu-item {
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.18s ease;
+}
+
+.settings-menu-item.active {
+  background: rgba(14, 165, 233, 0.25);
+  border-color: rgba(56, 189, 248, 0.5);
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(14, 165, 233, 0.3);
+}
+
+/* 3D WebGL Holographic Neural Core Viewport (Three.js MCU Core) */
+#webgl-core-container {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+#three-core-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+body.screensaver-active #webgl-core-container {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 35;
+}
+
+body.screensaver-active .reactor-bg-wrap {
+  opacity: 0;
+}
+
+/* Screensaver Typography & Anti-Burn-In Floating Drift */
+.screensaver-floating-box {
+  animation: floatDrift 45s infinite alternate ease-in-out;
+}
+
+@keyframes floatDrift {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(35px, -25px); }
+  50%  { transform: translate(-30px, 30px); }
+  75%  { transform: translate(25px, 20px); }
+  100% { transform: translate(0, 0); }
+}
+
+.screensaver-time {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI Light", sans-serif;
+  font-size: 8.5rem;
+  font-weight: 200;
+  letter-spacing: -3px;
+  line-height: 1;
+  text-shadow: 0 0 50px rgba(255, 170, 0, 0.55), 0 0 100px rgba(255, 110, 0, 0.3);
+}
+
+.screensaver-ampm {
+  font-size: 2.5rem;
+  vertical-align: super;
+  text-shadow: 0 0 25px rgba(255, 170, 0, 0.7);
+}
+
+/* J.A.R.V.I.S. Voice HUD */
 .jarvis-hud-box {
   background: rgba(8, 12, 22, 0.95);
   backdrop-filter: blur(40px) saturate(220%);
-  -webkit-backdrop-filter: blur(40px) saturate(220%);
   border: 1px solid rgba(56, 189, 248, 0.5);
   box-shadow: 0 0 80px 15px rgba(14, 165, 233, 0.45);
 }
